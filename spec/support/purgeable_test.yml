@@ -1,0 +1,8 @@
+test:
+  http_cache:
+    - resource_hosts:
+        - "www.example.com"
+        - "www2.example.com"
+      cache_locations:
+        - "localhost:80"
+        - "localhost2:80"

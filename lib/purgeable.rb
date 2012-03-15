@@ -6,3 +6,4 @@ end
 
 require "purgeable/http/purge"
 require "purgeable/settings"
+require "purgeable/railtie" if defined?(::Rails) && defined?(::Rails::Railtie)

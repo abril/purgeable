@@ -16,9 +16,4 @@ module Purgeable
       end
     end
   end
-
-  if defined? ::Rails
-    config_file = ::Rails.root.join("config/purgeable.yml")
-    load_settings config_file, ::Rails.env if File.exists? config_file
-  end
 end

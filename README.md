@@ -2,6 +2,14 @@
 
 Purge contents from shared caches easily by sending a HTTP method "PURGE".
 
+## Installation
+
+This is a Ruby GEM and may be installed with the command below:
+
+```bash
+$ gem install purgeable
+```
+
 ## Configuration
 
 Configuration file structure:

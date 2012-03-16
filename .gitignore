@@ -1,4 +1,5 @@
 .rvmrc
 Gemfile.lock
+GEM_VERSION
 *.gem
 coverage

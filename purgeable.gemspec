@@ -2,9 +2,11 @@
 lib = File.expand_path('../lib', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
+require "purgeable"
+
 Gem::Specification.new do |s|
   s.name        = "purgeable"
-  s.version     = "0.0.1"
+  s.version     = Purgeable::VERSION
   s.authors     = ["Marcelo Manzan"]
   s.email       = ["manzan@gmail.com"]
   s.homepage    = "http://github.com/abril/"
@@ -26,6 +28,6 @@ Gem::Specification.new do |s|
     Rakefile
   ]
   tests = `git ls-files -- {script,spec}/*`.split("\n")
-  s.files              = `git ls-files`.split("\n") - excepts - tests
+  s.files              = `git ls-files`.split("\n") - excepts - tests + %w[GEM_VERSION]
   # s.test_files         = tests
 end

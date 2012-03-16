@@ -26,12 +26,13 @@ describe "The purgeable client" do
   end
 
   it "should purge urls" do
-    res = @client.purge(["http://www.example.com/test/index.html"])
-    res.should be_kind_of(Array)
-    res.size.should be 1
-    res.first.should be_kind_of(Array)
-    res.first.size.should be 2
-    res.first.first.should be_kind_of(::Net::HTTPOK)
-    res.first.last.should be_kind_of(::Net::HTTPOK)
+    urls = ["http://www.example.com/test/index.html"]
+    res = @client.purge(urls)
+    res.should be_kind_of(Hash)
+    res.keys.should == urls
+    res[urls.first].keys == ["localhost2:80", "localhost:80"]
+    response = res[urls.first]["localhost:80"]
+    response.should be_kind_of(Net::HTTPOK)
+    response.code.should == "200"
   end
 end

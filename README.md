@@ -11,7 +11,7 @@ Configuration file structure:
 sample: &sample
   http_cache:
     - resource_hosts:
-        - "www1.example.com"
+        - "www.example.com"
         - "www2.example.com"
       cache_locations:
         - "varnish1.example.com"
@@ -57,9 +57,18 @@ Simple usage:
 client = Purgeable::Client.new
 urls = %w[
   http://www.example.com/article/my-example
-  http://www.example.com/article/id/1234
+  http://www3.example.com/article/id/1234
 ]
-client.purge(urls)
+client.purge(urls)  # => {
+                    #      "http://www.example.com/article/my-example" => {
+                    #          "varnish1.example.com" => #<Net::HTTPOK 200 Purged readbody=true>,
+                    #          "varnish2.example.com" => #<Net::HTTPOK 200 Purged readbody=true>
+                    #        },
+                    #      "http://www3.example.com/article/id/1234" => {
+                    #          "varnish3.example.com" => #<Net::HTTPOK 200 Purged readbody=true>,
+                    #          "varnish4.example.com" => #<Net::HTTPOK 200 Purged readbody=true>
+                    #        },
+                    #    }
 ```
 
 Model helpers usage:
@@ -69,7 +78,7 @@ class Article < ActiveRecord::Base
   include Purgeable::HttpResource
 
   def resource_url
-    "http://www.example.com/article/id/#{id}"
+    "http://www3.example.com/article/id/#{id}"
   end
 
   http_purge { "http://www.example.com/article/#{friendly_title}" }

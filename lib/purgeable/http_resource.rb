@@ -16,7 +16,7 @@ module Purgeable
     end
 
     def perform_purge
-      perform_purge! rescue []
+      perform_purge! rescue {}
     end
 
   private

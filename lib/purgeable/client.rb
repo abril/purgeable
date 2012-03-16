@@ -2,14 +2,21 @@
 module Purgeable
   class Client
     def purge(urls)
-      if urls.is_a?(String)
-        cache_locations_for(urls).map{ |location| perform_purge(location, urls) }
-      elsif urls.is_a?(Array)
-        urls.map{ |url| purge(url) }
-      end
+      purge_all(urls)
     end
 
   private
+    def purge_all(urls, responses = {})
+      if urls.is_a?(String)
+        cache_locations_for(urls).each do |location|
+          next if (responses[urls] ||= {}).has_key?(location)
+          responses[urls][location] = perform_purge(location, urls)
+        end
+      elsif urls.is_a?(Array)
+        urls.each{ |url| purge_all(url, responses) }
+      end
+      responses
+    end
 
     def perform_purge(location, url)
       ip, port = location.split(/:/)

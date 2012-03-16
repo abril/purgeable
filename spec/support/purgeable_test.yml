@@ -6,3 +6,10 @@ test:
       cache_locations:
         - "localhost:80"
         - "localhost2:80"
+
+empty:
+  http_cache:
+
+empty_http_cache:
+  http_cache: []
+
